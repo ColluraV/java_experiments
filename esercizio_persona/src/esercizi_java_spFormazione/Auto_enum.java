@@ -1,6 +1,7 @@
 package esercizi_java_spFormazione;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Auto_enum {
@@ -11,7 +12,7 @@ public class Auto_enum {
 		
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		
 		File file = new File("elenco_auto.txt");
 		Scanner scanner = new Scanner(file);

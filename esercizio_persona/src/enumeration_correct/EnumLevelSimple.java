@@ -1,4 +1,4 @@
-package esempiVari.enumeration;
+package enumeration_correct;
 
 public enum EnumLevelSimple {
     LOW,
