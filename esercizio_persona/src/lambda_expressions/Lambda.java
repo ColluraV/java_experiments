@@ -16,16 +16,16 @@ interface StringExecutable{
 class Runner{
 	public void run(Executable e, StringExecutable a) {
 		System.out.println("yamete kudasai");
-		e.execute(8);
+		System.out.println(e.execute(8));
 		a.executeString("cavatappi");
-		
 	}
 }
 
 public class Lambda {
 	public static void main(String[] args) {
 		Runner runner= new Runner();
-		runner.run(	(a)->a+8, (stringa)->stringa );
+		runner.run( (a)->a+10, 
+				(stringa)->{System.out.println(stringa); return stringa;});
 		/*non abbreviata: runner.run((a)->{return a+8;});*/
 		
 		/* qualora ci fossero due run per utilizzare le due interfacce*/
