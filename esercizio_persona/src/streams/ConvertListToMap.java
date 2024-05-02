@@ -113,7 +113,7 @@ public class ConvertListToMap implements StreamListMap{
 	@Override
 	public String[] booksAuthors(List<Book> books, String nazione) {
 				return (String[]) books.stream()
-						.filter(book -> book.getNazione().compareTo(nazione)==0)
+						.filter(book -> book.getNazione().compareTo(nazione)==1)
 						.map(book->book.getAuthor())
 						.toArray();						
 	}
