@@ -30,7 +30,7 @@ class ConvertListToMapTest {
 	@Test
 	void testListOldStyle() {
 		assertEquals(3,(lTM.listToMapOldStyle(listaProva).size()));
-		assertEquals("Descrizione del secondo libro",(lTM.listToMapOldStyle(listaProva)).get("ISBN2"));
+		assertEquals("Descrizione del secondo libro",(lTM.listToMapOldStyle(listaProva)).get());
 	}
 	
 	
