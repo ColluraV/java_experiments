@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.Objects;
 
 public class Book<T> {
-	String isbn;
+	private String isbn;
 
-	String desc;
+	private String desc;
 
-	String author;
+	private String author;
 
-	String nazione;
+	private String nazione;
 
-	int price;
+	private int price;
 	
 	List<String> books;
 

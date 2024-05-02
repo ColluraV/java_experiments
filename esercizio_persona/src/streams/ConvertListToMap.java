@@ -1,6 +1,5 @@
 package streams;
 
-import java.nio.file.DirectoryStream.Filter;
 import java.util.HashMap;
 import java.util.IntSummaryStatistics;
 import java.util.List;
@@ -16,7 +15,7 @@ public class ConvertListToMap implements StreamListMap{
         // Conversione dell'ArrayList in Map
         Map<String, Book> map = new HashMap<>();
         for (int i = 0; i < list.size(); i++) {
-            map.put(list.get(i).isbn, list.get(i)); 
+            map.put(list.get(i).getIsbn(), list.get(i)); 
         }
 
 		return map;
@@ -25,37 +24,39 @@ public class ConvertListToMap implements StreamListMap{
 	@Override
 	public Map<String, Book> listToMapWithLambda(List<Book> list) {
 
-        Map<String, Book> map = new HashMap<>();
-        list.forEach((book)->{       
-        	     	map.put(book.isbn, book);
-        	});
+//        Map<String, Book> map = new HashMap<>();
+//        list.forEach((book)->{       
+//        	     	map.put(book.getIsbn(), book);
+//        	});
         //esempio ((stringa)->{System.out.println(stringa); return stringa;});
 		
-		return map;
+		return list.stream()
+					.collect(Collectors.toMap(book->book.getIsbn(), book->book));
 	}
 
 	@Override
 	public Map<String, Book> listToMapWithReference(List<Book> list) {
-        Map<String, Book> map = list.stream().collect(Collectors.toMap(Book::getIsbn, book->book));
-
-		return map;
+		return list.stream()
+					.collect(Collectors.toMap(Book::getIsbn, book->book));
 	}
 
 	@Override
 	public Map<String, Book> listToMapWithFunctionIdentity(List<Book> list) {
-        Map<String, Book> map = list.stream().collect(Collectors.toMap(Book::getIsbn, Function.identity()));
-		return map;
+
+		return list.stream()
+					.collect(Collectors.toMap(Book::getIsbn, Function.identity()));
 	}
 
 	@Override
 	public Map<String, List<Book>> listToMapWithNoDuplicatesList(List<Book> list) {
-		Map<String, List<Book>> map = list.stream().collect(Collectors.groupingBy(Book::getIsbn));
-		return map;
+		return list.stream()
+				.collect(Collectors.groupingBy(Book::getIsbn));
 	}
 	@Override
 	public Map<String, Book> listToMapWithNoDuplicates(List<Book> list) {
-        Map<String, Book> map = list.stream().distinct().collect(Collectors.toMap(Book::getIsbn, Function.identity(),(first,second) -> first));
-		return map;
+		return list.stream()
+					.distinct()
+					.collect(Collectors.toMap(Book::getIsbn, Function.identity(),(first,second) -> first));
 	}
 
 	@Override
@@ -70,47 +71,51 @@ public class ConvertListToMap implements StreamListMap{
 	@Override
 	public Map<Boolean, List<Book>> listToMapPriceGreaterThen(List<Book> books, int price) {
 
-		return books.stream()
-					.filter(book -> book.getPrice().compareTo(price)>0)
-					.collect(Collectors.groupingBy(Book::getPrice))
-					;
-					
+		return books
+		.stream()
+		   .collect(Collectors.partitioningBy(book -> book.getPrice()>price));
 	}
 
 	@Override
 	public String bookNamesJoined(List<Book> books) {
-		// TODO Auto-generated method stub
-		return null;
+		return books.stream().map(book->book.getIsbn())
+					.collect(Collectors.joining(", "));
+		
 	}
 
 	@Override
 	public double averageBookPrize(List<Book> books) {
-		// TODO Auto-generated method stub
-		return 0;
+		return books.stream() 
+					.collect(Collectors.averagingInt(Book::getPrice));
 	}
 
 	@Override
 	public int totalCost(List<Book> books) {
-		// TODO Auto-generated method stub
-		return 0;
+		return books.stream().collect(Collectors.summingInt(Book::getPrice));
 	}
 
 	@Override
 	public IntSummaryStatistics booksStatistics(List<Book> books) {
-		// TODO Auto-generated method stub
-		return null;
+		return books.stream() 
+				.collect(Collectors.summarizingInt(Book::getPrice));
 	}
 
 	@Override
 	public String[] booksAuthors(List<Book> books) {
-		// TODO Auto-generated method stub
-		return null;
+		return (String[]) books.stream()
+					.map(book->book.getAuthor())
+					.toArray()
+					//.collect(Collectors.toList())
+					//.toArray(new String[0])
+					;
 	}
 
 	@Override
 	public String[] booksAuthors(List<Book> books, String nazione) {
-		// TODO Auto-generated method stub
-		return null;
+				return (String[]) books.stream()
+						.filter(book -> book.getNazione().compareTo(nazione)==0)
+						.map(book->book.getAuthor())
+						.toArray();						
 	}
 
 }
