@@ -1,9 +1,8 @@
 package streams;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.IOException;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +24,7 @@ class StatsFileWordsTest {
 	@Test
 	void testWords() throws IOException {
 		sFW.fileReader("text2.txt");
-		String[] expectedWords = {"CANE", "CAVALLO","MADRE", "MIA", "ROTONDA", "SARA", "TANGENZIALE", "TESLA"}; // esempio
+		String[] expectedWords = {"CANE", "CAVALLO","MADRE", "MIA", "ROTONDA", "SARA", "TANGENZIALE", "TESLA"}; 
         String[] actualWords=sFW.words();
         assertArrayEquals(expectedWords, actualWords);
     }
@@ -39,18 +38,28 @@ class StatsFileWordsTest {
 	}
 
 	@Test
-	void testWordGreater() {
-		fail("Not yet implemented");
+	void testWordGreater() throws IOException {
+		sFW.fileReader("fileReadAndSort.txt");
+		String actual="ZAINO";
+		String expected=sFW.wordGreater();
+		assertEquals(actual, expected);
 	}
 
 	@Test
-	void testWordsWithLenghtLessThen() {
-		fail("Not yet implemented");
+	void testWordsWithLenghtLessThen() throws IOException {
+		sFW.fileReader("text2.txt");
+		String [] actual={"CANE", "MIA", "SARA"}; 
+		String [] expected =sFW.wordsWithLenghtLessThen(5);
+		assertArrayEquals(actual, expected);
 	}
 
 	@Test
-	void testWordsJoined() {
-		fail("Not yet implemented");
+	void testWordsJoined() throws IOException {
+		sFW.fileReader("fileReadAndSort.txt");
+		String actual ="CACIOCAVALLOCANEDROMEDARIOZAINOZAINOZAINO";   
+		String expected=sFW.wordsJoined();
+		assertEquals(actual,expected);
+		 
 	}
 
 }

@@ -63,9 +63,12 @@ public class StatsFileWords implements StreamWords {
 	@Override
 	/* 4. Returns the greater word (alphabetically greater) */
 	public String wordGreater() throws IOException {
-		Optional<String> word = lsWords.stream().findFirst();
-		String first=word.toString();
-		return first;
+//		Optional<String> word = lsWords.stream().findFirst();
+//		String first=word.toString();
+//		return first;
+		return lsWords.stream().flatMap(line -> Arrays.stream(line.split("\\s+")))
+	            .max(String::compareTo)
+	            .orElse(null);
 	}
 
 	@Override
