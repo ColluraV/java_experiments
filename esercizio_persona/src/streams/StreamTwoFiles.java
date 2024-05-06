@@ -87,31 +87,39 @@ public class StreamTwoFiles implements WordsTwoFiles{
 
 	@Override
 	public boolean deleteWord(String word) {
-		// TODO Auto-generated method stub
-		return false;
+		concStream.filter(s -> !s.equals(word))
+	    .collect(Collectors.toList());
+		return true;
 	}
 
 	@Override
 	public String firstWord() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return concStream.findFirst().orElse("lo stream è vuoto");
 	}
 
 	@Override
 	public String lastWord() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return 	concStream.reduce((primo, secondo) -> secondo)
+			    .orElse("stream vuoto");
 	}
 
 	@Override
 	public int wordOccurrences(String word) {
-		// TODO Auto-generated method stub
-		return 0;
+		return (int) concStream.filter(parola-> parola.equals(word))
+        .count();
 	}
 
 	@Override
 	public boolean findWord(String word) {
-		// TODO Auto-generated method stub
+		String wordPresence = concStream.distinct().filter(parola-> parola.equals(word)).collect(Collectors.joining());
+			if (wordPresence.contains(word)) {
+				return true;
+			}	
+		
 		return false;
+
+	
 	}
 }

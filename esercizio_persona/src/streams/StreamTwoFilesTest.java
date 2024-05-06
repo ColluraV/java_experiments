@@ -52,7 +52,7 @@ class StreamTwoFilesTest {
 	void testWordsOfLength() {
 		String[] actual=STF.wordsOfLength(5);
 		String[] expected= {"ZAINO", "ZAINO", "ZAINO", "MADRE", "TESLA"};
-		
+		assertArrayEquals(actual, expected);
 	}
 
 	@Test
@@ -61,32 +61,40 @@ class StreamTwoFilesTest {
 		String expected="CACIOCAVALLO-CANE-DROMEDARIO-ZAINO-ZAINO-ZAINO-CANE-CAVALLO-MADRE-MIA-ROTONDA-SARA-TANGENZIALE-TESLA-NOVI";
 		//String actual=STF.addWord(word);
 		//assertEquals(actual, expected);
-		System.out.println(STF.addWord(word));
 	}
 
 	@Test
 	void testDeleteWord() {
-		fail("Not yet implemented");
+
 	}
 
 	@Test
 	void testFirstWord() {
-		fail("Not yet implemented");
+		String wordCheck=STF.firstWord();
+		System.out.println(wordCheck);
+		assertEquals(wordCheck, "CACIOCAVALLO");
 	}
 
 	@Test
 	void testLastWord() {
-		fail("Not yet implemented");
 	}
 
 	@Test
 	void testWordOccurrences() {
-		fail("Not yet implemented");
+		
+		
 	}
 
 	@Test
 	void testFindWord() {
-		fail("Not yet implemented");
+		boolean test=STF.findWord("ZAINO");
+		assertTrue(test);
+	}
+	
+	@Test
+	void testFindWordFalse() {
+		boolean falseTest=STF.findWord("PANINO");
+		assertFalse(falseTest);
 	}
 
 }
