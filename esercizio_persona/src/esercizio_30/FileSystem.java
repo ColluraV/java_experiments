@@ -8,7 +8,7 @@ public interface FileSystem {
 
 	es. c:/lavoro/esercizi o C:/test.txt */
 
-	public void setFileNamePath(String path);
+	public void setFileNamePath(String path) throws FileSystemAccessError;
 
 	/* Restituisce il nome del file corrente es. test.txt */
 
@@ -86,7 +86,7 @@ public interface FileSystem {
 
 	*/
 
-	public boolean mkDir(File dirPath);
+	public boolean mkDir(File dirPath) throws FileSystemAccessError;
 
 	/*
 
@@ -98,7 +98,7 @@ public interface FileSystem {
 
 	*/
 
-	public boolean mkDir(String dirName);
+	public boolean mkDir(String dirName) throws FileSystemAccessError;
 
 	/*
 
@@ -116,7 +116,7 @@ public interface FileSystem {
 
 	*/
 
-	public boolean create(File file);
+	public boolean create(File file) throws FileSystemAccessError;
 
 	/*
 
@@ -144,7 +144,7 @@ public interface FileSystem {
 
 	*/
 
-	public boolean deleteDir(File dirName);
+	public boolean deleteDir(File dirName) throws FileSystemAccessError;
 
 	/*
 
@@ -154,7 +154,7 @@ public interface FileSystem {
 
 	*/
 
-	public boolean deleteDir(String dirName);
+	public boolean deleteDir(String dirName) throws FileSystemAccessError;
 
 	/*
 
@@ -164,11 +164,12 @@ public interface FileSystem {
 
 	*/
 
-	public boolean delete(File file);
+	public boolean delete(File file) throws FileSystemAccessError;
 
 	/*
 
-	Restituisce la struttura delle directory contenute a partire da dir,ricorsivamente.
+	Restituisce la struttura delle directory contenute a partire da dir,
+	ricorsivamente.
 
 	Ogni elemento dell’array sarà del tipo;
 
@@ -182,11 +183,12 @@ public interface FileSystem {
 
 	*/
 
-	public String[] dirNested(File dir);
+	public String[] dirNested(File dir) throws FileSystemAccessError;
 
 	/*
 
-	Restituisce la struttura delle directory contenenti, a partire da dir, fino alla radice (il drive, indicato da ROOT).
+	Restituisce la struttura delle directory contenenti, a partire da dir,
+	fino alla radice (il drive, indicato da ROOT).
 
 	Ogni elemento dell’array sarà del tipo;
 
