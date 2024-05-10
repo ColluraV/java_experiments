@@ -6,6 +6,12 @@ public class FileSystemAccessError extends Exception {
 		private String methodName;
 		private File currentFile;
 		private Exception e;
+		
+		public FileSystemAccessError(String message,String methodName) {
+			super(message);
+			this.methodName = methodName;
+		}
+		
 		public FileSystemAccessError(String message,String methodName, File currentFile) {
 			super(message);
 			this.methodName = methodName;
